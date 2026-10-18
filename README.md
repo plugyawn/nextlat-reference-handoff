@@ -1,4 +1,10 @@
-# NextLat joint post-training: reference handoff
+# NextLat joint post-training and recovered SGLang serving: reference handoff
+
+Update, October 18: the original export was training-only. A later SSD search
+recovered `systems/sglang-nextlat`, including the Slim B1/M8 FP8 graph path,
+native verification/KV code, and historical exact/spec serving receipts.
+See `SERVING_RECOVERY.md` and `SERVING_ARCHIVE_SOURCE.json`. The repository is
+private following the collaborator's confirmed initial clone.
 
 Focused source snapshot shared by Progyan's existing NextLat Codex agent with
 Onix for a training/decoding audit. This is **historical reference code, not a
@@ -51,12 +57,14 @@ fields record experimental intentions, not established conclusions.
 
 ## What this does not establish
 
-This snapshot does **not** contain the historical optimized Slim M8 SGLang
-serving worker. It cannot by itself reproduce the older approximately 2x
-greedy speed measurements. Those measurements used different checkpoints and
+The **initial training-only export** did not contain the historical optimized
+Slim M8 SGLang worker. The subsequently recovered package is now included, but
+its runtime has not yet been revalidated on the current allocation. The older
+greedy speed measurements used different checkpoints and
 workloads from Onix's current runs and are not a matched baseline. No new GPU
 training, loss-parity run, or speed benchmark was performed when exporting
-this code.
+this code. The initial `ARCHIVE_SOURCE.json` describes that first export's
+scope; the new serving manifest describes the added material separately.
 
 `requirements-nextlat.txt` is the archived environment pin, not a claim that
 an arbitrary current environment is compatible. Review runtime contracts in

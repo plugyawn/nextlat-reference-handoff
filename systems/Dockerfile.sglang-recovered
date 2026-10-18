@@ -1,0 +1,8 @@
+ARG BASE_REF
+FROM ${BASE_REF}
+COPY sglang /source/sglang
+COPY sglang-nextlat /opt/sglang-nextlat
+RUN mkdir -p /opt/sglang/bin \
+ && ln -s "$(command -v python3)" /opt/sglang/bin/python \
+ && /opt/sglang/bin/python -m pip install --no-deps -e /opt/sglang-nextlat
+ENV PYTHONPATH=/opt/sglang-nextlat/src:/source/sglang/python

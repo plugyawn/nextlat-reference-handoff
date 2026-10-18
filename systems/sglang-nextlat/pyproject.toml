@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools==84.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sglang-nextlat"
+version = "0.0.1"
+description = "Narrow Qwen3-1.7B NextLat speculative-decoding plugin for pinned SGLang"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "safetensors>=0.5.3",
+  "torch>=2.7",
+]
+
+[project.optional-dependencies]
+runtime = [
+  "sglang @ git+https://github.com/sgl-project/sglang.git@baf09f39544d3cd812c77ed78132eedefaee5c5d#subdirectory=python",
+]
+
+[project.entry-points."sglang.srt.plugins"]
+nextlat = "sglang_nextlat.plugin:register"
+
+[project.scripts]
+sglang-nextlat-build-sidecar = "sglang_nextlat.build_sidecar:main"
+sglang-nextlat-build-sm90-image = "sglang_nextlat.build_image:main"
+sglang-nextlat-smoke = "sglang_nextlat.smoke_gpu:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sglang_nextlat = ["audited_sglang.json"]
+
+[tool.sglang-nextlat]
+audited-sglang-commit = "baf09f39544d3cd812c77ed78132eedefaee5c5d"
+fixed-topk = 1
+default-max-draft-tokens = 8
+max-draft-tokens = 32
