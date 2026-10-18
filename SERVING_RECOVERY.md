@@ -16,6 +16,11 @@ eager-only qualification boundary. They were preserved as recovered historical
 files and are NOT an up-to-date feature/validation matrix for the later worker.
 Inspect the actual code, flags and archived executed receipts. The recovered
 Dockerfile is `systems/Dockerfile.sglang-recovered`; its context is `systems`.
+That Docker build additionally requires the pinned upstream checkout at
+`systems/sglang`; the checkout itself is not vendored here. The recovered
+`run_serving_cell.py`, exporter and bootstrap reference are under
+`systems/recovered-serving-controller`. They retain historical paths and flags:
+adapt those deliberately, and do not copy old allocation/teardown controllers.
 Not every file mentioned by older image-building helpers was in this archive.
 
 September 9 source has not been shown byte-identical to the September 5 winning
