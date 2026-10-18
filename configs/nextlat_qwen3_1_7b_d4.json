@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "claim": "The single d=4 repair makes Qwen3-1.7B hidden states useful recurrent search states after d=1 learned strong local dynamics but drifted recursively.",
+  "model": {
+    "id": "Qwen/Qwen3-1.7B",
+    "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "parameter_dtype": "float32",
+    "compute_dtype": "bfloat16",
+    "attention": "sdpa"
+  },
+  "dataset": {
+    "id": "open-r1/OpenR1-Math-220k",
+    "config": "default",
+    "split": "train",
+    "revision": "e4e141ec9dea9f8326f4d347be56105859b2bd68",
+    "split_seed": 1234
+  },
+  "upstream_nextlat": {
+    "repository": "https://github.com/JaydenTeoh/NextLat",
+    "revision": "3770be6009cea2b3c455a9ce7f2ca88b504bb955",
+    "model_nextlat_sha256": "bd324f6c8ac21b7a475adfcf8ccde7724cfe5af607ff1f281cbd7c3fd877c096",
+    "model_base_sha256": "e2645ed8e4d83de4daf9a3759b91537ed9c4216d4a189a9723d6d8cdd14ba34a"
+  },
+  "data": {
+    "prepared_name": "openr1-nextlat-qwen3-1.7b-4096-d4-v1",
+    "sequence_length": 4096,
+    "prepared_train_tokens": 24000000,
+    "recursive_holdout_problems": 256,
+    "stress_candidate_problems": 256
+  },
+  "nextlat": {
+    "horizon": 4,
+    "projection_factor": 1.6,
+    "dropout": 0.0,
+    "lambda_h": 1.0,
+    "lambda_kl": 1.0,
+    "vocab_chunk_tokens": 128
+  },
+  "training": {
+    "seed": 1234,
+    "decision_tokens": 20000000,
+    "micro_batch_size": 1,
+    "gradient_accumulation_steps": 1,
+    "base_learning_rate": 0.00001,
+    "dynamics_learning_rate": 0.0001,
+    "warmup_tokens": 1000000,
+    "weight_decay": 0.1,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "adam_eps": 1e-8,
+    "gradient_clip": 1.0,
+    "log_every_updates": 5,
+    "recursive_eval_every_tokens": 2000000,
+    "recursive_eval_examples": 8,
+    "checkpoint_tokens": [5000000, 10000000, 20000000]
+  },
+  "recursive_gate": {
+    "depths": [1, 2, 4, 8, 16, 32],
+    "minimum_useful_edge": 16,
+    "proposal_length": 32
+  }
+}

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+env.local
+*key*.txt
+*.pem
+*.pt
+*.bin
+*.safetensors
+data/
+checkpoints/
+wandb/
+.DS_Store

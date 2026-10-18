@@ -1,0 +1,10 @@
+torch==2.7.1
+numpy==2.4.6
+transformers==5.9.0
+tokenizers==0.22.2
+huggingface-hub==1.29.0
+datasets==4.8.5
+accelerate==1.13.0
+safetensors==0.7.0
+wandb==0.29.0
+matplotlib==3.10.5

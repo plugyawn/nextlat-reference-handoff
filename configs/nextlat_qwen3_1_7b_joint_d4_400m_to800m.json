@@ -1,0 +1,129 @@
+{
+  "schema_version": 5,
+  "claim": "Unchanged original joint post-hoc NextLat d=4 training can continue improving Qwen3-1.7B recurrent-state utility from the verified 400,004,379-token endpoint through 800,004,379 total corpus tokens.",
+  "model": {
+    "id": "Qwen/Qwen3-1.7B",
+    "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "parameter_dtype": "float32",
+    "compute_dtype": "bfloat16",
+    "attention": "sdpa"
+  },
+  "runtime": {
+    "required_transformers_version": "5.9.0",
+    "expected_rope_theta": 1000000,
+    "maximum_parent_admission_ce": 0.15
+  },
+  "dataset": {
+    "id": "open-r1/OpenR1-Math-220k",
+    "config": "default",
+    "split": "train",
+    "revision": "e4e141ec9dea9f8326f4d347be56105859b2bd68",
+    "split_seed": 1234
+  },
+  "upstream_nextlat": {
+    "repository": "https://github.com/JaydenTeoh/NextLat",
+    "revision": "3770be6009cea2b3c455a9ce7f2ca88b504bb955",
+    "model_nextlat_sha256": "bd324f6c8ac21b7a475adfcf8ccde7724cfe5af607ff1f281cbd7c3fd877c096",
+    "model_base_sha256": "e2645ed8e4d83de4daf9a3759b91537ed9c4216d4a189a9723d6d8cdd14ba34a"
+  },
+  "data": {
+    "prepared_name": "openr1-nextlat-qwen3-1.7b-4096-d4-long-1xh200-v1",
+    "sequence_length": 4096,
+    "prepared_train_tokens": 24000000,
+    "recursive_holdout_problems": 256,
+    "stress_candidate_problems": 256
+  },
+  "nextlat": {
+    "horizon": 4,
+    "projection_factor": 1.6,
+    "dropout": 0.0,
+    "lambda_h": 1.0,
+    "lambda_kl": 1.0,
+    "vocab_chunk_tokens": 128
+  },
+  "training": {
+    "seed": 1234,
+    "decision_tokens": 800004379,
+    "registered_token_rungs": [500004379, 600004379, 700004379, 800004379],
+    "expected_world_size": 1,
+    "micro_batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "base_learning_rate": 0.00001,
+    "dynamics_learning_rate": 0.0001,
+    "warmup_tokens": 1000000,
+    "weight_decay": 0.1,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "adam_eps": 1e-8,
+    "gradient_clip": 1.0,
+    "log_every_updates": 5,
+    "recursive_eval_every_tokens": 0,
+    "recursive_eval_examples": 0,
+    "checkpoint_tokens": [450004379, 500004379, 550004379, 600004379, 650004379, 700004379, 750004379, 800004379],
+    "resumable_checkpoint_tokens": [450004379, 500004379, 550004379, 600004379, 650004379, 700004379, 750004379, 800004379],
+    "wandb_artifact_tokens": [500004379, 600004379, 700004379, 800004379],
+    "wandb_receipt_artifact_tokens": [450004379, 550004379, 650004379, 750004379],
+    "freeze_theta": false,
+    "teacher_forced_corpus_tokens": true
+  },
+  "scale_ladder": {
+    "parent_total_tokens": 400004379,
+    "decision_continuation_tokens": 400000000,
+    "hard_stop_tokens": 800004379,
+    "inline_recursive_evaluation": false
+  },
+  "tracking": {
+    "backend": "wandb",
+    "required": true,
+    "mode": "online",
+    "entity": "runix",
+    "project": "nextlat-mcts",
+    "group": "qwen3-1.7b-nextlat-joint-d4-original-scale",
+    "job_type": "joint-nextlat-full-ft-continuation",
+    "run_name": "qwen3-1.7b-nextlat-joint-d4-400m-to800m-h200-seed1234",
+    "tags": ["nextlat", "qwen3-1.7b", "joint", "teacher-forced", "d4", "original-objective", "1xh200", "400m-continuation"],
+    "notes": "User-directed unchanged original joint d=4 continuation from the verified 400,004,379-token endpoint. Exact corpus tokens feed each connected recurrent step; Qwen theta and residual dynamics psi remain trainable under ordinary CE plus official uniform d4 SmoothL1 and full-vocabulary KL. Parent model, dynamics, four-group Adam tensors, RNG, sampler, and prepared corpus are imported unchanged. No DMT, detached repair, horizon mixture, learned readout, or search loss is active."
+  },
+  "recursive_gate": {
+    "depths": [1, 2, 4, 8, 16, 32],
+    "minimum_useful_edge": 16,
+    "proposal_length": 32
+  },
+  "continuation": {
+    "protocol": "optimizer_state_preserving_joint_d16_to_joint_d4_v1",
+    "parent": {
+      "artifact": "runix/nextlat-mcts/d16pt_baf855e_2a4e530c-checkpoint:v0",
+      "artifact_digest": "d8f01b66c3872c1c168fbf6cbe645c5d",
+      "artifact_bytes": 21651405848,
+      "artifact_prefix": "checkpoint-400000000-tokens/",
+      "source_code_commit": "b0e20b77134431f00cfd116fc8895a5cc5fb1175",
+      "config_sha256": "73f419a8ca30da7abec89f4773ad11d186352ccbdbe4f2e3a77c2dd16e55a8e0",
+      "checkpoint_receipt_sha256": "08f1520b78ab47e1978d12a50061539a82062564d1dac3006922c2456b56c81a",
+      "train_state_sha256": "29242bf50c871d22262eff650d3abf7a8b46a14e3e419313a493a14b4923fcda",
+      "optimizer_sha256": "00d775d9dfe5f8e883a4b9c33823d810b70c7fcee2911dd53570a3fc1ea75594",
+      "rng_sha256": "5fdcafac6e6fdb1641fcc52c02542544111152691f609883feb7339fcf384e01",
+      "tokens_seen": 400004379,
+      "update": 18190,
+      "data_batches_seen": 145520,
+      "sampler_epoch": 16,
+      "sampler_offset": 5808,
+      "prepared_manifest_sha256": "390df21664f57c1df0e44cb33cefcbd37d82d908458730a968aec4485e13466f",
+      "optimizer_group_parameter_counts": [197, 113, 3, 1],
+      "theta_adam_steps": [18190],
+      "psi_adam_steps": [18190],
+      "optimizer_history": "Theta and psi were jointly updated through 400,004,379 tokens; the parent ended under uniform d16, both Adam clocks are 18,190, and this continuation switches the connected objective back to the unchanged original d4 formulation."
+    },
+    "prepared_data": {
+      "source_code_commit": "77f4506ae1231154f8f4047c984d4902f646c498",
+      "config_sha256": "255217be3a8b10af86a2e07adaaea319c1a77cbf9e30f416ade8af74338b19b7",
+      "manifest_sha256": "390df21664f57c1df0e44cb33cefcbd37d82d908458730a968aec4485e13466f",
+      "train_records": 8732,
+      "train_record_digest": "10435d38e729a45fc589f34d55381b050aad671a6250d8fd753e328972f883cd"
+    }
+  },
+  "evidence_gate": {
+    "qualification": "The first real update must reproduce the established original d4 loss path, produce finite nonzero theta and psi gradients, preserve the four-group Adam clocks, and save/reload exactly.",
+    "milestones": "At 500M, 600M, 700M, and 800M total tokens, compare against the immutable 400M parent on the locked n=256 recursive evaluation and retain decoded same-anchor rollouts.",
+    "non_goals": ["DMT", "detached repair", "d8 or d16 horizon training", "MCTS", "learned readout", "kernel or framework migration"]
+  }
+}
